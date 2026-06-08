@@ -448,14 +448,14 @@ AWS-CloudWatch-Monitoring-Auto-Scaling-Project/
 
 # 👨‍💻 Author
 
-## Lokesh Jakkali
+## Jakkali Lokesh
 
-Cloud Engineer | DevOps Enthusiast | AWS Practitioner
+Cloud Engineer | DevOps Engineer | SOC Analyst
 
 ### Connect With Me
 
 - GitHub: https://github.com/jakkalilokesh
-- LinkedIn: Add Your LinkedIn Profile
+- LinkedIn: https://www.linkedin.com/in/jakkalilokesh
 
 ---
 
