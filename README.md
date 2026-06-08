@@ -4,116 +4,153 @@
 
 ### Real-Time Infrastructure Monitoring, Alerting & Dynamic Scaling on AWS
 
-<img src="./architecture/architecture-diagram.png" width="100%" alt="AWS Architecture Diagram"/>
+<p align="center">
+  <img src="./architecture/architecture-diagram.png" width="100%" alt="AWS CloudWatch Monitoring Architecture">
+</p>
 
 <br>
 
-<img src="https://img.shields.io/badge/AWS-Cloud-orange?style=for-the-badge&logo=amazonaws"/>
-<img src="https://img.shields.io/badge/Amazon-CloudWatch-FF4F8B?style=for-the-badge&logo=amazonaws"/>
-<img src="https://img.shields.io/badge/Amazon-EC2-FF9900?style=for-the-badge&logo=amazonaws"/>
-<img src="https://img.shields.io/badge/Amazon-SNS-FF4F8B?style=for-the-badge&logo=amazonaws"/>
-<img src="https://img.shields.io/badge/Auto-Scaling-232F3E?style=for-the-badge&logo=amazonaws"/>
-
-<br>
-
-<img src="https://img.shields.io/badge/Status-Completed-success?style=flat-square"/>
-<img src="https://img.shields.io/badge/Platform-AWS-orange?style=flat-square"/>
-<img src="https://img.shields.io/badge/Project-Cloud%20Monitoring-blue?style=flat-square"/>
+![AWS](https://img.shields.io/badge/AWS-Cloud-orange?style=for-the-badge&logo=amazonaws)
+![CloudWatch](https://img.shields.io/badge/Amazon-CloudWatch-FF4F8B?style=for-the-badge&logo=amazonaws)
+![EC2](https://img.shields.io/badge/Amazon-EC2-FF9900?style=for-the-badge&logo=amazonaws)
+![SNS](https://img.shields.io/badge/Amazon-SNS-232F3E?style=for-the-badge&logo=amazonaws)
+![Auto Scaling](https://img.shields.io/badge/Auto-Scaling-blue?style=for-the-badge)
 
 </div>
 
 ---
 
-# 📖 Project Overview
+# 📌 Project Overview
 
-This project demonstrates the implementation of a highly available and scalable AWS monitoring solution using Amazon CloudWatch, CloudWatch Alarms, SNS Notifications, Application Load Balancer, Launch Templates, and Auto Scaling Groups.
+Modern applications must remain highly available under varying traffic loads while minimizing infrastructure costs.
 
-The infrastructure continuously monitors EC2 performance, generates alerts during abnormal conditions, and dynamically scales resources based on CPU utilization.
+This project demonstrates how AWS CloudWatch, SNS, EC2, Launch Templates, Load Balancing, and Auto Scaling Groups can be integrated to create a self-monitoring and self-scaling cloud infrastructure.
+
+The solution continuously monitors EC2 CPU utilization, generates alerts when thresholds are exceeded, and automatically adjusts infrastructure capacity based on workload demand.
 
 ---
 
-# 🎯 Project Goals
+# 🎯 Problem Statement
 
-✅ Monitor EC2 instances in real time
+Organizations often face two major challenges:
 
-✅ Configure CloudWatch metrics and dashboards
+### High Traffic
 
-✅ Create CloudWatch alarms for CPU utilization
+- Increased user traffic can overload servers.
+- Performance degradation impacts user experience.
+- Manual scaling causes delays.
 
-✅ Configure SNS email notifications
+### Low Traffic
 
-✅ Implement Auto Scaling Groups
+- Idle servers increase cloud costs.
+- Resources remain underutilized.
 
-✅ Perform load testing using stress utility
+This project addresses both challenges through automated monitoring and scaling mechanisms.
 
-✅ Validate dynamic scale-out events
+---
 
-✅ Improve infrastructure reliability and scalability
+# 🚀 Solution
+
+The implemented solution provides:
+
+✅ Real-time infrastructure monitoring
+
+✅ Automated alert generation
+
+✅ Email notifications using Amazon SNS
+
+✅ Dynamic resource scaling
+
+✅ Improved application availability
+
+✅ Reduced operational overhead
+
+✅ Cost optimization through automated scale-in
 
 ---
 
 # 🏗 Solution Architecture
 
-<div align="center">
-
-<img src="./architecture/architecture-diagram.png" width="100%" alt="Architecture Diagram"/>
-
-</div>
+<p align="center">
+  <img src="./architecture/architecture-diagram.png" width="100%">
+</p>
 
 ---
 
 # 🔄 Architecture Workflow
 
-## 1️⃣ User Traffic
+## Step 1 – User Traffic
 
-Users access the application through the Application Load Balancer (ALB).
+Users access the application through an Application Load Balancer (ALB).
 
-## 2️⃣ Traffic Distribution
+---
 
-The ALB distributes incoming requests across EC2 instances managed by the Auto Scaling Group.
+## Step 2 – Traffic Distribution
 
-## 3️⃣ Infrastructure Monitoring
+The ALB distributes incoming requests across EC2 instances managed by an Auto Scaling Group.
+
+---
+
+## Step 3 – Metrics Collection
 
 Amazon CloudWatch continuously collects:
 
 - CPU Utilization
 - Network Metrics
-- Status Checks
-- Performance Metrics
+- Instance Health Metrics
+- Resource Utilization Statistics
 
-## 4️⃣ Alarm Evaluation
+---
 
-CloudWatch Alarm evaluates CPU utilization thresholds.
+## Step 4 – Alarm Evaluation
+
+CloudWatch evaluates CPU thresholds.
+
+Example:
 
 ```text
 CPU Utilization > 70%
 ```
 
-## 5️⃣ Notification Trigger
+---
 
-Amazon SNS sends email notifications whenever the alarm enters the ALARM state.
+## Step 5 – Alert Generation
 
-## 6️⃣ Auto Scaling Evaluation
+CloudWatch Alarm enters the ALARM state.
 
-Target Tracking Policy continuously evaluates average CPU utilization.
+---
+
+## Step 6 – Notification Delivery
+
+Amazon SNS sends email notifications to subscribed users.
+
+---
+
+## Step 7 – Auto Scaling Decision
+
+Target Tracking Policy evaluates:
 
 ```text
-Target CPU = 50%
+Average CPU Utilization = 50%
 ```
 
-## 7️⃣ Scale-Out Event
+---
 
-When CPU utilization exceeds the configured target:
+## Step 8 – Scale Out
 
-- Auto Scaling launches additional EC2 instances
-- Traffic is automatically distributed
+When utilization remains above target:
 
-## 8️⃣ Scale-In Event
+- Additional EC2 instances are launched.
+- Traffic is redistributed automatically.
 
-When demand decreases:
+---
 
-- Unused instances are terminated
-- Infrastructure costs are optimized
+## Step 9 – Scale In
+
+When utilization decreases:
+
+- Extra instances are terminated.
+- Infrastructure costs are reduced.
 
 ---
 
@@ -122,42 +159,52 @@ When demand decreases:
 | Service | Purpose |
 |----------|----------|
 | Amazon EC2 | Application Hosting |
-| Amazon CloudWatch | Monitoring & Metrics |
+| Amazon CloudWatch | Monitoring & Metrics Collection |
 | CloudWatch Alarms | Threshold-Based Alerting |
 | Amazon SNS | Email Notifications |
-| Auto Scaling Groups | Dynamic Scaling |
-| Launch Templates | Standardized Instance Deployment |
+| Auto Scaling Groups | Dynamic Capacity Management |
+| Launch Templates | Standardized EC2 Deployment |
 | Application Load Balancer | Traffic Distribution |
 
 ---
 
 # ⚙️ Infrastructure Configuration
 
-## EC2 Configuration
+## EC2 Instance
 
 | Parameter | Value |
 |------------|---------|
-| OS | Amazon Linux |
+| Operating System | Amazon Linux |
 | Web Server | Apache HTTP Server |
-| Monitoring Metric | CPUUtilization |
+| Monitoring Metric | CPU Utilization |
 
 ---
 
 ## CloudWatch Alarm
 
-| Parameter | Value |
-|------------|---------|
+| Parameter | Configuration |
+|------------|---------------|
 | Metric | CPUUtilization |
 | Threshold | 70% |
-| Period | 5 Minutes |
+| Evaluation Period | 5 Minutes |
 | Action | SNS Notification |
+
+---
+
+## SNS Notification
+
+| Parameter | Configuration |
+|------------|---------------|
+| Protocol | Email |
+| Topic | cloudwatch-alerts |
+| Purpose | Alarm Notifications |
 
 ---
 
 ## Auto Scaling Group
 
-| Parameter | Value |
-|------------|---------|
+| Parameter | Configuration |
+|------------|---------------|
 | Minimum Capacity | 1 |
 | Desired Capacity | 1 |
 | Maximum Capacity | 3 |
@@ -166,54 +213,54 @@ When demand decreases:
 
 ## Target Tracking Policy
 
-| Parameter | Value |
-|------------|---------|
+| Parameter | Configuration |
+|------------|---------------|
 | Metric | Average CPU Utilization |
 | Target Value | 50% |
-| Scale In | Enabled |
 | Instance Warmup | 300 Seconds |
+| Scale In | Enabled |
 
 ---
 
-# 🚀 Implementation Steps
+# 🛠 Implementation Steps
 
-## Step 1: Deploy EC2 Instance
+## 1. Launch EC2 Instance
 
-- Launched Amazon Linux EC2 Instance
-- Configured Security Groups
-- Installed Apache HTTP Server
-- Verified Web Application Access
-
----
-
-## Step 2: Configure CloudWatch Monitoring
-
-- Enabled CloudWatch Metrics
-- Monitored CPU Utilization
-- Visualized Metrics
+- Created Amazon Linux EC2 instance
+- Configured security groups
+- Installed Apache Web Server
+- Verified application accessibility
 
 ---
 
-## Step 3: Create CloudWatch Alarm
+## 2. Configure CloudWatch Monitoring
 
-Configured alarm for:
+- Enabled EC2 monitoring
+- Verified CPU metrics collection
+- Created CloudWatch visualizations
+
+---
+
+## 3. Create CloudWatch Alarm
+
+Configured an alarm based on:
 
 ```text
-CPU Utilization > 70%
+CPUUtilization > 70%
 ```
 
 ---
 
-## Step 4: Configure SNS Notifications
+## 4. Configure SNS Notifications
 
 - Created SNS Topic
 - Added Email Subscription
 - Confirmed Subscription
-- Verified Notifications
+- Tested Notification Delivery
 
 ---
 
-## Step 5: Create Launch Template
+## 5. Create Launch Template
 
 Configured:
 
@@ -224,29 +271,43 @@ Configured:
 
 ---
 
-## Step 6: Create Auto Scaling Group
+## 6. Create Auto Scaling Group
 
-Configured:
+Configured capacity settings:
 
 ```text
-Minimum Capacity = 1
-Desired Capacity = 1
-Maximum Capacity = 3
+Min = 1
+Desired = 1
+Max = 3
 ```
 
 ---
 
-## Step 7: Configure Scaling Policy
+## 7. Configure Dynamic Scaling
 
-Target Tracking Policy:
+Created Target Tracking Policy:
 
 ```text
-Average CPU Utilization = 50%
+Target CPU Utilization = 50%
 ```
 
 ---
 
-## Step 8: Perform Load Testing
+## 8. Generate Load
+
+Connected to EC2:
+
+```bash
+ssh -i key.pem ec2-user@PUBLIC_IP
+```
+
+Installed stress utility:
+
+```bash
+sudo yum install stress -y
+```
+
+Generated CPU load:
 
 ```bash
 stress --cpu 8 --timeout 900
@@ -254,144 +315,194 @@ stress --cpu 8 --timeout 900
 
 ---
 
-## Step 9: Validate Auto Scaling
+## 9. Validate Monitoring & Scaling
 
 Observed:
 
-- CPU Utilization reached ~100%
-- CloudWatch Alarm entered ALARM state
-- SNS Notifications triggered
-- Additional EC2 instances launched automatically
+- CPU utilization increased to ~100%
+- CloudWatch Alarm triggered
+- SNS notifications delivered
+- Auto Scaling policy evaluated load
+- Additional instances launched
 
 ---
 
-# 📊 Project Results
+# 📊 Results
 
-## CloudWatch Monitoring
+## Monitoring
 
-✅ Real-time monitoring implemented
+✅ Successfully monitored EC2 performance
 
-✅ CPU metrics successfully collected
-
-✅ Performance visibility improved
+✅ Real-time CloudWatch metrics available
 
 ---
 
-## Alerting System
+## Alerting
 
-✅ CloudWatch Alarm triggered successfully
+✅ Alarm triggered when CPU crossed threshold
 
-✅ SNS email notifications delivered
+✅ Email notifications delivered successfully
 
 ---
 
-## Auto Scaling
+## Scaling
 
-✅ Dynamic scaling configured
+✅ Auto Scaling Group responded to load
 
-✅ Additional EC2 instances provisioned automatically
+✅ Additional capacity provisioned automatically
 
-✅ Infrastructure adapted to workload changes
+---
+
+## Reliability
+
+✅ Improved application availability
+
+✅ Reduced risk of performance bottlenecks
 
 ---
 
 # 📸 Project Screenshots
 
-## CloudWatch Metrics
+## 📊 CloudWatch Metrics
 
-<img src="./screenshots/cloudwatch-metrics.png" width="100%"/>
-
----
-
-## CPU Alarm Triggered
-
-<img src="./screenshots/cpu-alarm-triggered.png" width="100%"/>
+<p align="center">
+  <img src="screenshots/cloudwatch-metrics.png" width="100%">
+</p>
 
 ---
 
-## Auto Scaling Policy
+## 🚨 CPU Alarm Triggered
 
-<img src="./screenshots/autoscaling-policy.png" width="100%"/>
-
----
-
-## Running EC2 Instances
-
-<img src="./screenshots/two-instances-running.png" width="100%"/>
+<p align="center">
+  <img src="screenshots/cpu-alarm-triggered.png" width="100%">
+</p>
 
 ---
 
-## Scale-Out Activity
+## ⚙️ Auto Scaling Policy
 
-<img src="./screenshots/scale-out-activity.png" width="100%"/>
+<p align="center">
+  <img src="screenshots/autoscaling-policy.png" width="100%">
+</p>
 
 ---
 
-# 📚 Key Learnings
+## 🖥️ Running EC2 Instances
 
-- Amazon CloudWatch Monitoring
-- CloudWatch Alarms
-- Amazon SNS Notifications
-- EC2 Instance Management
+<p align="center">
+  <img src="screenshots/two-instances-running.png" width="100%">
+</p>
+
+---
+
+## 📈 Scale-Out Activity
+
+<p align="center">
+  <img src="screenshots/scale-out-activity.png" width="100%">
+</p>
+
+---
+
+# 📈 Key Outcomes
+
+### Monitoring
+
+- CloudWatch Metrics
+- Dashboards
+- Alarm Management
+
+### Alerting
+
+- SNS Integration
+- Email Notifications
+- Event Detection
+
+### Scalability
+
 - Auto Scaling Groups
-- Launch Templates
-- Load Testing
+- Target Tracking Policies
+- Capacity Management
+
+### Reliability
+
 - High Availability
-- Infrastructure Scalability
-- AWS Monitoring Best Practices
+- Load Distribution
+- Fault Tolerance
+
+---
+
+# 🎓 Skills Demonstrated
+
+### Cloud Computing
+
+- AWS EC2
+- CloudWatch
+- SNS
+- Auto Scaling
+
+### DevOps
+
+- Infrastructure Monitoring
+- Performance Analysis
+- Capacity Planning
+- System Reliability
+
+### Linux Administration
+
+- Apache Configuration
+- Server Monitoring
+- Resource Management
 
 ---
 
 # 🔮 Future Enhancements
 
-- Terraform Infrastructure as Code
-- GitHub Actions CI/CD
+- Infrastructure as Code using Terraform
+- CI/CD using GitHub Actions
 - Docker Containerization
-- Amazon EKS Deployment
+- Kubernetes Deployment
 - Prometheus Monitoring
 - Grafana Dashboards
 - CloudWatch Logs Integration
-- AWS Cost Optimization Monitoring
+- Cost Optimization Analytics
 
 ---
 
 # 📂 Repository Structure
 
 ```text
-aws-cloudwatch-autoscaling-monitoring/
+AWS-CloudWatch-Monitoring-Auto-Scaling-Project/
 │
 ├── README.md
 │
 ├── architecture/
 │   └── architecture-diagram.png
 │
-├── screenshots/
-│   ├── cloudwatch-metrics.png
-│   ├── cpu-alarm-triggered.png
-│   ├── autoscaling-policy.png
-│   ├── two-instances-running.png
-│   └── scale-out-activity.png
-│
-└── docs/
-    └── project-notes.md
+└── screenshots/
+    ├── cloudwatch-metrics.png
+    ├── cpu-alarm-triggered.png
+    ├── autoscaling-policy.png
+    ├── two-instances-running.png
+    └── scale-out-activity.png
 ```
 
 ---
 
 # 👨‍💻 Author
 
-### Lokesh Jakkali
+## Lokesh Jakkali
 
-**Cloud Computing | DevOps | AWS**
+Cloud Engineer | DevOps Enthusiast | AWS Practitioner
 
-[![GitHub](https://img.shields.io/badge/GitHub-Profile-black?style=for-the-badge&logo=github)](https://github.com/YOUR_USERNAME)
+### Connect With Me
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Profile-blue?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/YOUR_LINKEDIN)
+- GitHub: https://github.com/jakkalilokesh
+- LinkedIn: Add Your LinkedIn Profile
 
 ---
 
 <div align="center">
 
-⭐ If you found this project useful, please consider giving it a star.
+### ⭐ If you found this project useful, consider starring the repository.
 
 </div>
