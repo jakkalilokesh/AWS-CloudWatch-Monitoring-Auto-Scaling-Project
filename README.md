@@ -361,48 +361,6 @@ Observed:
 
 ---
 
-# 📸 Project Screenshots
-
-## 📊 CloudWatch Metrics
-
-<p align="center">
-  <img src="screenshots/cloudwatch-metrics.png" width="100%">
-</p>
-
----
-
-## 🚨 CPU Alarm Triggered
-
-<p align="center">
-  <img src="screenshots/cpu-alarm-triggered.png" width="100%">
-</p>
-
----
-
-## ⚙️ Auto Scaling Policy
-
-<p align="center">
-  <img src="screenshots/autoscaling-policy.png" width="100%">
-</p>
-
----
-
-## 🖥️ Running EC2 Instances
-
-<p align="center">
-  <img src="screenshots/two-instances-running.png" width="100%">
-</p>
-
----
-
-## 📈 Scale-Out Activity
-
-<p align="center">
-  <img src="screenshots/scale-out-activity.png" width="100%">
-</p>
-
----
-
 # 📈 Key Outcomes
 
 ### Monitoring
